@@ -264,13 +264,13 @@
 				<table class="table-striped table-bordered table-hover midrows">
 					<thead class="fixed-tbl">
 						<tr>
-							<th class="small-cell">מספר שיעור</th>
-							<th class="small-cell"> תאריך</th>
-							<th class="small-cell">זמן שיעור</th>
+							<th class="small-cell box-content-large"> מספר שיעור </th>
+							<th class="small-cell">תאריך השיעור </th>
+							<th class="small-cell"> זמן שיעור </th>
 						</tr>
 					</thead>
 					<tbody class="fixed-tbl">
-						<tr ng-repeat="lesson in lessonsIds">
+						<tr ng-repeat="lesson in lessonsIds" ng-click="lessonClicked(lesson)">
 							<td class="small-cell">{{lessonsIds[$index].num}}</td>
 							<td class="small-cell">{{lessons[$index].date}}</td>
 							<td class="small-cell">{{lessons[$index].hour}}</td>

@@ -1,6 +1,6 @@
-apple.controller('singleCourse', ['$rootScope', '$scope', '$state', '$stateParams', '$http', '$q', 'userService', 'Upload', 'server',
+apple.controller('singleCourse', ['$location', '$rootScope', '$scope', '$state', '$stateParams', '$http', '$q', 'userService', 'Upload', 'server',
 
-	function ($rootScope, $scope, $state, $stateParams, $http, $q, userService, Upload, server) {
+	function ($location, $rootScope, $scope, $state, $stateParams, $http, $q, userService, Upload, server) {
 
 		//console.log($rootScope);
 
@@ -49,6 +49,10 @@ apple.controller('singleCourse', ['$rootScope', '$scope', '$state', '$stateParam
 		};
 
 		loadAllLessons($scope.courseid);
+
+		$scope.lessonClicked = function(lesson){	  
+			$state.transitionTo('singleLesson', {lessonId: lesson.lessonid, lessonNum: lesson.num});  
+		}
 
 		$scope.alertcontrol = {};
 

@@ -1,4 +1,20 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 11e8edb05cdb7a54feaccc1ecc797bb7e69c4c5b
+<!-- table of course students  -->
+<div ng-if="isAdmin">
+    <h1> מס' שיעור: {{lessonNum}}</h1>
+    <table class="table-striped table-bordered table-hover midrows">
+        <thead class="fixed-tbl">
+            <tr>
+                <th class="small-cell box-content-large"> שם פרטי </th>
+                <th class="small-cell"> שם משפחה </th>
+                <th class="small-cell"> סטאטוס נוכחות </th>
+            </tr>
+        </thead>
+        <tbody class="fixed-tbl">
+            <tr ng-repeat="student in students">
+                <td class="small-cell">{{student.firstname}}</td> 
+                <td class="small-cell">{{student.lastname}}</td>
+                <td class="small-cell">{{student.attendanceStatus}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
