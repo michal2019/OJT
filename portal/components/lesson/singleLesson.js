@@ -3,15 +3,15 @@ apple.controller('singleLesson', ['$rootScope', '$scope', '$state', '$stateParam
 
         $scope.statuses = [];
         $scope.GetStatuses = function () {
-            var data={};
+            var data = {};
             server.requestPhp(data, "GetEnrollmentTags").then(function (data) {
                 $scope.statuses = data;
             });
         }
 
-        $scope.students=[];
+        $scope.students = [];
         $scope.lessonNum = $stateParams["lessonNum"];
- 
+
         getStudentsAttendanceStatus();
 
         function getStudentsAttendanceStatus() {
@@ -21,22 +21,35 @@ apple.controller('singleLesson', ['$rootScope', '$scope', '$state', '$stateParam
                 $scope.students = data;
             });
         }
-        $scope.setAttendanceStatus = function(student, status) {
-            student.attendanceStatus = status;
+        $scope.setAttendanceStatus = function (student, status) {
             var data = {};
-            data.student=student;
+            var async = $q.defer();
+            student.attendanceStatus = status;
+            // data.status = student.attendanceStatus;
+            data.student = student;
             data.lessonid = $stateParams["lessonId"];
-            if(student.checkstudentid==null)
-            {
-                server.requestPhp(data, "AddCheckStudentStatus").then(function(data) {
+            console.log(data);
+            if (student.checkstudentid == null) {
+                server.requestPhp(data, 'AddCheckStudentStatus').then(function (data) {
+                    console.log("Success in saving status");
+                    async.resolve(data); // --> no data came back
+                }, function (err) {
+                    console.error(err);
+                    async.reject(error);
                 });
-            }
-            else{
-                student.attendanceStatus = status;
-                server.requestPhp(data, "UpdateCheckStudentStatus").then(function(data) {
+                return async.promise;
+            } else {
+                server.requestPhp(data, 'UpdateCheckStudentStatus').then(function (data) {
+                    console.log("Success in saving status");
+                    async.resolve(data); // --> no data came back
+                }, function (err) {
+                    console.error(err);
+                    async.reject(error);
                 });
+                return async.promise;
             }
-        };
+        }
+
 
         $scope.backToCoursePage = function () {
             $state.transitionTo('singleCourse', { courseId: $stateParams["courseId"] });
