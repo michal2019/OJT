@@ -158,7 +158,7 @@ apple.config(function ($stateProvider, $urlRouterProvider,$httpProvider) {
 		}
 	})
 	.state("singleLesson", {
-		url: "/singleLesson/:lessonId?lessonNum&",
+		url: "/singleLesson/:courseId?lessonId?lessonNum&",
         params:{
 			lessonNum:
 			{

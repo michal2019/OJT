@@ -1,6 +1,7 @@
 <!-- table of course students  -->
 <div ng-if="isAdmin">
     <h1> מס' שיעור: {{lessonNum}}</h1>
+    <button ng-click="backToCoursePage()">Back To Course Page</button>
     <table class="table-striped table-bordered table-hover midrows">
         <thead class="fixed-tbl">
             <tr>
@@ -11,9 +12,17 @@
         </thead>
         <tbody class="fixed-tbl">
             <tr ng-repeat="student in students">
-                <td class="small-cell">{{student.firstname}}</td> 
+                <td class="small-cell">{{student.firstname}}</td>
                 <td class="small-cell">{{student.lastname}}</td>
-                <td class="small-cell">{{student.attendanceStatus}}</td>
+                <td>
+                    <select ng-model="student.attendanceStatus" 
+                        ng-change="setAttendanceStatus(student, student.attendanceStatus)">
+                        <option value="0">נוכח</option>
+                        <option value="1">איחר</option>
+                        <option value="2">לא נוכח</option>
+                        <option value="3">עדיין לא דיווח</option>
+                    </select>
+                </td>
             </tr>
         </tbody>
     </table>

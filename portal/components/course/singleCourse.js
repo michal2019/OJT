@@ -51,7 +51,7 @@ apple.controller('singleCourse', ['$location', '$rootScope', '$scope', '$state',
 		loadAllLessons($scope.courseid);
 
 		$scope.lessonClicked = function(lesson){	  
-			$state.transitionTo('singleLesson', {lessonId: lesson.lessonid, lessonNum: lesson.num});  
+			$state.transitionTo('singleLesson', {courseId:$scope.courseid, lessonId: lesson.lessonid, lessonNum: lesson.num});  
 		}
 
 		$scope.alertcontrol = {};
