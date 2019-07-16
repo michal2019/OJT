@@ -270,10 +270,10 @@
 						</tr>
 					</thead>
 					<tbody class="fixed-tbl">
-						<tr ng-repeat="lesson in lessonsIds" ng-click="lessonClicked(lesson)">
-							<td class="small-cell">{{lessonsIds[$index].num}}</td>
-							<td class="small-cell">{{lessons[$index].date}}</td>
-							<td class="small-cell">{{lessons[$index].hour}}</td>
+						<tr ng-repeat="lesson in lessons" ng-click="lessonClicked(lesson)">
+							<td class="small-cell">{{lesson.num}}</td>
+							<td class="small-cell">{{lesson.date}}</td>
+							<td class="small-cell">{{lesson.hour}}</td>
 						</tr>
 					</tbody>
 				</table>

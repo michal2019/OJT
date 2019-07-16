@@ -4,15 +4,7 @@ apple.controller('singleCourse', ['$location', '$rootScope', '$scope', '$state',
 
 		//console.log($rootScope);
 
-		function Lesson(courseid, lessonid, date, hour, num) {
-			this.courseid = courseid;
-			this.lessonid = lessonid;
-			this.date= date;
-			this.hour = hour;
-			this.num = num;
-		  }
 		$scope.courseid = $stateParams.courseId;
-		$scope.lessonsIds = [];
 		$scope.lessons = [];
 		var wasMeetingActivated = function (m) {
 
@@ -25,33 +17,20 @@ apple.controller('singleCourse', ['$location', '$rootScope', '$scope', '$state',
 			data.type = "post";
 			server.requestPhp(data, "GetLessonsOfCourse").then(function (data) {
 				if (data && !data.error) {
-					$scope.lessonsIds = data.filter(wasMeetingActivated);
+					$scope.lessons = data;
 				}
-				for (var i = 0; i < $scope.lessonsIds.length; i++) {
-					loadLesson(i, courseId);
+				for (var i = 0; i < $scope.lessons.length; i++) {
+					var dateInDateFormat = new Date(parseInt($scope.lessons[i].beginningdate));
+					$scope.lessons[i].date = moment(dateInDateFormat).format('DD-MM-YYYY');
+					$scope.lessons[i].hour = moment(dateInDateFormat).format('HH:mm');
 				}
 			});
 		}
-
-		loadLesson = function (index, courseId) {
-			var data = {};
-			data.lessonid = $scope.lessonsIds[index]["lessonid"];
-			data.courseid = courseId;
-			server.requestPhp(data, "GetLessonById").then(function (data) {
-				if (data && !data.error) {
-					var dateInDateFormat = new Date(parseInt(data.lesson.beginningdate));
-					data.lesson.date = moment(dateInDateFormat).format('DD-MM-YYYY');
-					data.lesson.hour = moment(dateInDateFormat).format('HH:mm');
-					var lesson= new Lesson(courseId, $scope.lessonsIds[index]["lessonid"], data.lesson.date, data.lesson.hour, index+1);
-					$scope.lessons.push(lesson);
-				}
-			});
-		};
-
+	
 		loadAllLessons($scope.courseid);
 
 		$scope.lessonClicked = function(lesson){	  
-			$state.transitionTo('singleLesson', {courseId:$scope.courseid, lessonId: lesson.lessonid, lessonNum: lesson.num});  
+			$state.transitionTo('singleLesson', {courseId:$scope.courseid, lessonId: lesson.lessonid, lessonNum: lesson.num});
 		}
 
 		$scope.alertcontrol = {};
