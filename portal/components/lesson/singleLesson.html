@@ -16,11 +16,8 @@
                 <td class="small-cell">{{student.lastname}}</td>
                 <td>
                     <select ng-model="student.attendanceStatus" 
-                        ng-change="setAttendanceStatus(student, student.attendanceStatus)">
-                        <option value="0">נוכח</option>
-                        <option value="1">איחר</option>
-                        <option value="2">לא נוכח</option>
-                        <option value="3">עדיין לא דיווח</option>
+                        ng-change="setAttendanceStatus(student, student.attendanceStatus)"
+                        ng-options="attendanceStatus.value as attendanceStatus.name for attendanceStatus in AttendanceStatusesTags">
                     </select>
                 </td>
             </tr>

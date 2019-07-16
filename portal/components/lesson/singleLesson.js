@@ -49,8 +49,16 @@ apple.controller('singleLesson', ['$rootScope', '$scope', '$state', '$stateParam
                 return async.promise;
             }
         }
-
-
+        $scope.AttendanceStatusesTags = [];
+        $scope.GetAttendanceStatuses = function() {
+            var data = {};
+            server.requestPhp(data, "GetAttendanceStatuses").then(function(data) {
+                $scope.AttendanceStatusesTags = data;
+                console.log($scope.AttendanceStatusesTags);
+            });
+        }
+    
+        $scope.GetAttendanceStatuses();
         $scope.backToCoursePage = function () {
             $state.transitionTo('singleCourse', { courseId: $stateParams["courseId"] });
         }
